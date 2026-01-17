@@ -1,61 +1,59 @@
-# 1️⃣ Імпорти
-from telegram import Update, ReplyKeyboardRemove, InlineKeyboardMarkup, InlineKeyboardButton
-from telegram.ext import Application, CommandHandler, MessageHandler, CallbackQueryHandler, ContextTypes, filters
-import config
+from config import TOKEN
+from telebot import types
+from telebot.async_telebot import AsyncTeleBot
+import asyncio
 import keyboards
 
-# 2️⃣ Обробник команди /start
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    # 2.1 Reply-клавіатура під полем введення
-    await update.message.reply_text(
-        "Привіт! Кнопки під полем введення 👇",
-        reply_markup=keyboards.reply_keyboard()  # тут викликаємо функцію з keyboards.py
+bot = AsyncTeleBot(TOKEN)
+storage = {}
+
+
+@bot.message_handler(commands=["start"])
+async def start(message: types.Message):
+    await bot.send_message(
+        message.chat.id,
+        "Hello! I'm your friendly bot.",
+        reply_markup=keyboards.questions
     )
-    
-    # 2.2 Inline-клавіатура всередині повідомлення
-    inline = InlineKeyboardMarkup([
-        [InlineKeyboardButton("Inline 1", callback_data="inline_1"),
-         InlineKeyboardButton("Inline 2", callback_data="inline_2")],
-        [InlineKeyboardButton("Закрити", callback_data="close")]
-    ])
-    await update.message.reply_text("А це Inline кнопки 👇", reply_markup=inline)
 
-# 3️⃣ Обробник Reply-кнопок (під полем введення)
-async def reply_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    text = update.message.text
-    if text == "Вихід":
-        await update.message.reply_text("Закрили клавіатуру.", reply_markup=ReplyKeyboardRemove())
+
+@bot.message_handler(commands=["help"])
+async def help(message: types.Message):
+    await bot.send_message(
+        message.chat.id,
+        "/start — Start bot\n/help — Help"
+    )
+
+@bot.callback_query_handler(func=lambda call: True)
+async def callback_qeury(call: types.CallbackQuery):
+    try:
+        if call.data == "inline_1":
+            await bot.answer_callback_query(call.id, text="Ви натиснули inline_1")
+            await bot.send_message(call.message.char.id, "Винатиснули inline_1")
+        if call.data == "inline_2":
+            await bot.answer_callback_query(call.id, text="Ви натиснули inline_2")
+            await bot.send_message(call.message.char.id, "Винатиснули inline_2")
+    except Exception as e:
+        print(f"Error: {e}")
+
+@bot.message_handler(content_types=['text'])
+async def query(message: types.Message):
+    text = message.text.lower()
+
+    if 'привіт' in text:
+        await bot.send_message(message.chat.id, 'Здоров')
+    elif 'як життя' in text:
+        await bot.send_message(message.chat.id, 'Та норм')
+    elif 'бувай' in text:
+        await bot.send_message(message.chat.id, 'Вдалого полювання сталкере')
     else:
-        await update.message.reply_text(f"Ти натиснув Reply кнопку: {text}")
+        await bot.send_message(message.chat.id, 'Нічого не зрозумів')
 
-# 4️⃣ Обробник Inline-кнопок
-async def inline_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    query = update.callback_query
-    await query.answer()  # обов'язково!!!
 
-    if query.data == "inline_1":
-        await query.edit_message_text("Ти натиснув Inline 1!")
-    elif query.data == "inline_2":
-        await query.edit_message_text("Ти натиснув Inline 2!")
-    elif query.data == "close":
-        await query.edit_message_text("Inline клавіатура закрита.")
+async def main():
+    await bot.remove_webhook()
+    await bot.infinity_polling(skip_pending=True)
 
-# 5️⃣ Запуск Application
-def main():
-    app = Application.builder().token(config.TOKEN).build()
 
-    # 5.1 Додаємо /start
-    app.add_handler(CommandHandler("start", start))
-    
-    # 5.2 Додаємо обробник Reply-кнопок
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, reply_handler))
-    
-    # 5.3 Додаємо обробник Inline-кнопок
-    app.add_handler(CallbackQueryHandler(inline_callback))
-
-    print("БОТ ПРАЦЮЄ")
-    app.run_polling()
-
-# 6️⃣ Точка входу
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

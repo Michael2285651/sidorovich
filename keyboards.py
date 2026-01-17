@@ -1,4 +1,5 @@
 from telegram import ReplyKeyboardMarkup, InlineKeyboardMarkup, InlineKeyboardButton
+from telebot import types
 
 # 1️⃣ ReplyKeyboard (кнопки під полем введення)
 def reply_keyboard():
@@ -11,14 +12,6 @@ def reply_keyboard():
     )
 
 # 2️⃣ InlineKeyboard (кнопки всередині повідомлення)
-def inline_keyboard():
-    keyboard = [
-        [
-            InlineKeyboardButton("Inline 1", callback_data="inline_1"),
-            InlineKeyboardButton("Inline 2", callback_data="inline_2")
-        ],
-        [
-            InlineKeyboardButton("Закрити", callback_data="close")
-        ]
-    ]
-    return InlineKeyboardMarkup(keyboard)
+questions = types.InlineKeyboardMarkup(row_width=2)
+
+questions.add(InlineKeyboardButton("Inline 1", callback_data="inline_1"))
