@@ -12,7 +12,9 @@ storage = {}
 async def start(message: types.Message):
     await bot.send_message(
         message.chat.id,
-        "Hello! I'm your friendly bot.",
+        "Здоров сталкере, як я бачу ти тут новенький, тож давай я тобі розповім, що й до чого. "
+        "Для початку я не представився — мене звати Сидорович. Я тутешній торговець і можу "
+        "розповісти тобі багато чого цікавого про Чорнобильську зону відчуження. Почнемо?",
         reply_markup=keyboards.questions
     )
 
@@ -29,10 +31,10 @@ async def callback_qeury(call: types.CallbackQuery):
     try:
         if call.data == "inline_1":
             await bot.answer_callback_query(call.id, text="Ви натиснули inline_1")
-            await bot.send_message(call.message.char.id, "Винатиснули inline_1")
+            await bot.send_message(call.message.char.id, "Ви натиснули inline_1")
         if call.data == "inline_2":
             await bot.answer_callback_query(call.id, text="Ви натиснули inline_2")
-            await bot.send_message(call.message.char.id, "Винатиснули inline_2")
+            await bot.send_message(call.message.char.id, "Ви натиснули inline_2")
     except Exception as e:
         print(f"Error: {e}")
 
