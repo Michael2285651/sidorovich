@@ -253,34 +253,6 @@ async def callback_qeury(call: types.CallbackQuery):
             await bot.send_message(call.message.chat.id, "Ручна оборонна граната; її осколки здатні пробивати бронежилети середнього ступеня захисту, а вибухова хвиля вражає цілі в радіусі до 7 м. До рук сталкерів зазвичай трапляє у процесі мінових відносин із військовими." , reply_markup=keyb.categories)
         elif call.data == "RP_74":
             await bot.send_message(call.message.chat.id, "РП-74 - радянський ручний кулемет. Він дуже потужний, скорострільний та має велику ємкість коробу для патронів. Але також в кулемета сильна віддача, мала точність і велика вага. Рідкісна зброя, яку використовують для боротьби із великою кількістю супротивників." , reply_markup=keyb.categories)
-# Броння #
-
-        elif call.data == "Gangster_jacket":
-            await bot.send_message(call.message.chat.id, "Бандитська куртка — один з найслабших костюмів у грі, лише трохи переважає шкіряну куртку." , reply_markup=keyb.categories)
-        elif call.data == "Bulat_armored_suit":
-            await bot.send_message(call.message.chat.id, "«Булат» — посилений бронекостюм військових з відмінними показниками захисту, використовується армійським спецназом. Комплектується із шоломом «Сфера 12»." , reply_markup=keyb.categories)
-        elif call.data == "Beryll_5M_Power_Armor":
-            await bot.send_message(call.message.chat.id, "«Берил-5М» - бронекостюм, що використовується військовими." , reply_markup=keyb.categories)
-        elif call.data == "Wind_of_Freedom_Jumpsuit":
-            await bot.send_message(call.message.chat.id, "Комбінезон «Вітер волі» - є легшим варіантом спорядження фракції «Воля»." , reply_markup=keyb.categories)
-        elif call.data == "PSZ_9d_Armor_for_Duty":
-            await bot.send_message(call.message.chat.id, "ПС3-9д «Броня «Долгу» — відмінний бронекостюм, виготовлений ремісниками угруповання «Долг». Стандартна екіпірування ветеранів" , reply_markup=keyb.categories)
-        elif call.data == "SSP_99M_Coverall":
-            await bot.send_message(call.message.chat.id, "ССП-99М — футуристичний науковий костюм, вдосконалений варіант комбінезона ССП-99 «Еколог»." , reply_markup=keyb.categories)
-        elif call.data == "SSP_99_Ecologist":
-            await bot.send_message(call.message.chat.id, "ССП-99 - стандартний комбінезон наукових груп діючих в Зоні.Створений для роботи в умовах Зони костюм хімічного захисту ССП-99." , reply_markup=keyb.categories)
-        elif call.data == "Monolit_overalls":
-            await bot.send_message(call.message.chat.id, "Комбінезон «Моноліту» — стандартний комбінезон, використовуваний угрупованням «Моноліт». Зазвичай його носять штурмовики, дозорні, або розвідники" , reply_markup=keyb.categories)
-        elif call.data == "Mercenary_jumpsuit":
-            await bot.send_message(call.message.chat.id, "Стандартне екіпірування найманців. Комбінезон середньої якості, що здатен зупинити пістолетну кулю. Нажаль, захист від аномалій, що забезпечує цей костюм, не дуже достатній для суворих умов Зони, тож краще обирати комбінезони інших угруповань." , reply_markup=keyb.categories)
-        elif call.data == "Exoskeleton":
-            await bot.send_message(call.message.chat.id, "Екзоскелет — це бронекостюм, якій з'являється в усіх іграх серії." , reply_markup=keyb.categories)
-        elif call.data == "SEVA_overalls":
-            await bot.send_message(call.message.chat.id, "Комбінезон «СЕВА» — костюм з найкращім захистом від аномалій та радіації." , reply_markup=keyb.categories)
-        elif call.data == "Jumpsuit_Zorya":
-            await bot.send_message(call.message.chat.id, "Комбінезон «Зоря» — костюм широко популярний серед сталкерів." , reply_markup=keyb.categories)
-        elif call.data == "Leather_jacket":
-            await bot.send_message(call.message.chat.id, "Шкіряна куртка — найбазовіший костюм. Трохи посилює захист. Цю куртку носять деякі сталкери-новачки, які нещодавно прийшли у Зону." , reply_markup=keyb.categories)
     except Exception as e:
         await bot.send_message(call.message.chat.id, "Шось бошка болить приходь пізніше")
 
